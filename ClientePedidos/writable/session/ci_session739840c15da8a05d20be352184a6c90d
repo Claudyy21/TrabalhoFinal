@@ -1,0 +1,1 @@
+__ci_last_regenerate|i:1778631968;logado|b:1;usuario|a:6:{s:2:"id";s:1:"1";s:5:"email";s:15:"teste@gmail.com";s:10:"senha_hash";s:60:"$2y$10$1tASgrR45wSij5rJGyhBduKAVTuEh2GRmAYE9I1r1.JNlCs6u5sGy";s:10:"created_at";s:19:"2026-05-12 23:23:00";s:10:"updated_at";s:19:"2026-05-12 23:23:00";s:4:"tipo";s:5:"admin";}_ci_previous_url|s:37:"http://localhost/aula7/admin/produtos";
