@@ -39,22 +39,42 @@ class BaseController extends Controller
             $ip = 'local';
         }
 
+        $totemName = $this->makeTotemLabelFromIp($ip);
         $session = session();
-        $totemId = $session->get('totem_id');
-
-        if (empty($totemId)) {
-            $totemId = 'totem-' . substr(hash('sha256', $ip . '|' . ($_SERVER['SERVER_NAME'] ?? 'localhost')), 0, 16);
-            $session->set('totem_id', $totemId);
-        }
-
-        $session->set('totem_ip', $ip);
+        $session->set([
+            'totem_id'   => $totemName,
+            'totem_name' => $totemName,
+            'totem_ip'   => $ip,
+        ]);
 
         return [
-            'totem_id'   => $totemId,
-            'id_totem'   => $totemId,
-            'id_maquina' => $totemId,
-            'maquina_id' => $totemId,
+            'totem_id'   => $totemName,
+            'id_totem'   => $totemName,
+            'id_maquina' => $totemName,
+            'maquina_id' => $totemName,
             'totem_ip'   => $ip,
+            'totem_name' => $totemName,
         ];
     }
+
+    /**
+     * Converte um IP em um rótulo de totem simples, como "totem 01".
+     */
+    private function makeTotemLabelFromIp(string $ip): string
+    {
+        if ($ip === 'local') {
+            return 'totem 01';
+        }
+
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+            $parts = explode('.', $ip);
+            $last = (int) end($parts);
+            $last = $last > 0 ? $last : 1;
+            return sprintf('totem %02d', ($last % 99) ?: 99);
+        }
+
+        $hash = sprintf('%u', crc32($ip));
+        return sprintf('totem %02d', ($hash % 99) + 1);
+    }
 }
+

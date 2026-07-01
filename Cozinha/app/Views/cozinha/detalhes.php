@@ -7,7 +7,13 @@
 
         <div class="card shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Pedido #<?= $pedido['id'] ?></h5>
+                <?php $totemLabel = $pedido['totem_name'] ?? $pedido['totem_id'] ?? $pedido['id_totem'] ?? $pedido['id_maquina'] ?? $pedido['maquina_id'] ?? null; ?>
+                <div>
+                    <h5 class="mb-0">Pedido #<?= $pedido['id'] ?></h5>
+                    <?php if (!empty($totemLabel)): ?>
+                        <small class="text-muted">Totem: <?= esc($totemLabel) ?></small>
+                    <?php endif; ?>
+                </div>
                 <?php
                     $status = $pedido['status'] ?? 'novo';
                     $badgeColor = match($status) {

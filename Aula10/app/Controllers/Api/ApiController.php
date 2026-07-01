@@ -149,7 +149,10 @@ class ApiController extends BaseController
     $db->transStart();
 
     $idPedido = $pedidoModel->insert([
-        'status' => $dados['status'] ?? 'novo'
+        'status'     => $dados['status'] ?? 'novo',
+        'totem_id'   => $dados['totem_id']   ?? null,
+        'totem_name' => $dados['totem_name'] ?? null,
+        'totem_ip'   => $dados['totem_ip']   ?? null,
     ]);
 
     foreach ($dados['produtos'] as $produto) {

@@ -21,10 +21,16 @@
                 <button class="accordion-button collapsed" type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#pedido<?= $pedido['id'] ?>">
-                    <div class="d-flex justify-content-between w-100 me-3">
+                    <?php $totemLabel = $pedido['totem_name'] ?? $pedido['totem_id'] ?? $pedido['id_totem'] ?? $pedido['id_maquina'] ?? $pedido['maquina_id'] ?? null; ?>
+                    <div class="d-flex justify-content-between align-items-center w-100 me-3">
+                    <div>
                         <span><strong>Pedido #<?= $pedido['id'] ?></strong></span>
-                        <span class="badge bg-<?= $badgeColor ?>"><?= ucfirst(str_replace('_', ' ', $status)) ?></span>
+                        <?php if (!empty($totemLabel)): ?>
+                            <div class="text-muted small">Totem: <?= esc($totemLabel) ?></div>
+                        <?php endif; ?>
                     </div>
+                    <span class="badge bg-<?= $badgeColor ?>"><?= ucfirst(str_replace('_', ' ', $status)) ?></span>
+                </div>
                 </button>
             </h2>
             <div id="pedido<?= $pedido['id'] ?>" class="accordion-collapse collapse">

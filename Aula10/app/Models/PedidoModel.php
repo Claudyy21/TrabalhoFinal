@@ -9,7 +9,7 @@ class PedidoModel extends Model
     protected $table         = 'pedidos';
     protected $primaryKey    = 'id';
     protected $returnType    = 'array';
-    protected $allowedFields = ['status'];
+    protected $allowedFields = ['status', 'totem_id', 'totem_name', 'totem_ip'];
 
     protected $useTimestamps = true;
     protected $useSoftDeletes = true;
